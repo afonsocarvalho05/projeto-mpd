@@ -1,0 +1,2 @@
+-- Views used by the solution.
+-- If no view is justified, explain this in the report instead of creating artificial objects.

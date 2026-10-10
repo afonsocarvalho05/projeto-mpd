@@ -1,0 +1,2 @@
+-- Triggers, procedures, functions or other programmable database objects, when justified.
+-- Do not create objects only to satisfy a count.

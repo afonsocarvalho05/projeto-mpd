@@ -1,0 +1,2 @@
+﻿Table,Attribute,Data Type,PK,FK,Nullable,Unique,Allowed Values / Domain,Description,Example
+example_table,example_id,INTEGER,Y,,N,Y,,Unique identifier,1
