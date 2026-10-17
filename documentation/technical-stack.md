@@ -1,10 +1,13 @@
 # Technical Stack
 
 ## Database
-- DBMS:
-- Version:
-- Database name:
-- SQL dialect:
+- DBMS: MySQL Community Server
+- Version: 8.0.x (testado em 8.0.46; mínimo 8.0.16, necessário para CHECK constraints)
+- Database name: `despensa_solidaria`
+- SQL dialect: MySQL 8.0
+- Storage engine: InnoDB (obrigatório para chaves estrangeiras e transações)
+- Charset / collation: `utf8mb4` / `utf8mb4_0900_ai_ci`
+- Ferramenta de administração: MySQL Workbench 8.0
 
 ## Backend
 - Language:
@@ -36,3 +39,5 @@ Describe only if applicable.
 - Credentials must not be hard-coded.
 - New dependencies must be identified.
 - Generated code must be compatible with the versions specified above.
+- Violações de regras de negócio em triggers/procedimentos são sinalizadas com `SIGNAL SQLSTATE '45000'` e uma mensagem que indica a regra (ex.: "BR02: ...").
+- Em MySQL um trigger não pode alterar a tabela que o disparou; regras que o exijam são implementadas em procedimentos.
