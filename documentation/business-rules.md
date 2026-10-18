@@ -15,11 +15,11 @@ Identificadores BR01, BR02, ... descrevem regras impostas pelo domínio.
 **Rationale / domain meaning:** Minimiza o desperdício por expiração.
 
 ## BR04 — Máximo de turnos por voluntário
-**Rule:** Um voluntário não pode estar inscrito em mais de 3 turnos na mesma semana.
+**Rule:** Um voluntário não pode estar inscrito em mais de 3 turnos na mesma semana (semana ISO, de segunda a domingo). Voluntários inativos não se inscrevem.
 **Rationale / domain meaning:** Distribui o esforço e evita sobrecarga de voluntários.
 
 ## BR05 — Lote pertence a uma doação e a um produto
-**Rule:** Cada lote pertence a exatamente uma doação, um produto e um armazém, e tem quantidade inicial maior que zero.
+**Rule:** Cada lote pertence a exatamente uma doação, um produto e — através da doação — um armazém, e tem quantidade inicial maior que zero.
 **Rationale / domain meaning:** Garante a rastreabilidade da origem de cada produto em stock.
 
 ## BR06 — Capacidade do turno
@@ -31,7 +31,7 @@ Identificadores BR01, BR02, ... descrevem regras impostas pelo domínio.
 **Rationale / domain meaning:** Distribuição justa entre instituições.
 
 ## BR08 — Lotes do armazém de saída
-**Rule:** Os lotes usados numa entrega têm de estar no armazém de onde a entrega sai.
+**Rule:** Os lotes usados numa entrega têm de estar no armazém de onde a entrega sai e ter sido recebidos (data da doação) até à data da entrega.
 **Rationale / domain meaning:** Uma entrega é preparada fisicamente num único armazém.
 
 ## BR09 — Não se aceitam produtos expirados

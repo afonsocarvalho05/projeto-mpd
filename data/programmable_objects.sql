@@ -108,7 +108,7 @@ BEGIN
   -- Um lote só pode sair depois de ter sido recebido.
   IF v_data_doacao > v_data_entrega THEN
     SIGNAL SQLSTATE '45000'
-      SET MESSAGE_TEXT = 'O lote só foi recebido depois da data da entrega.';
+      SET MESSAGE_TEXT = 'BR08: o lote só foi recebido depois da data da entrega.';
   END IF;
 
   -- BR01: nenhum lote expirado é entregue.

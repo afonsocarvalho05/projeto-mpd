@@ -35,7 +35,7 @@ Desenvolver uma base de dados relacional e um protótipo funcional que permitam 
 
 ### Excluded
 - Doações monetárias e contabilidade.
-- Logística de transporte (rotas, viaturas).
+- Logística de transporte (rotas, viaturas) e transferências de stock entre armazéns.
 - Gestão de famílias/beneficiários finais das instituições.
 - Emissão de recibos fiscais de doação.
 - Autenticação segura de nível de produção (o protótipo usa login simples por papel).
@@ -60,7 +60,7 @@ Desenvolver uma base de dados relacional e um protótipo funcional que permitam 
 
 ## Initial assumptions / constraints
 - A IPSS, os nomes e os dados são fictícios.
-- Cada lote corresponde a um produto recebido numa doação, com uma única data de validade e um único armazém.
+- Cada lote corresponde a um produto recebido numa doação, com uma única data de validade; o armazém do lote é o armazém onde a doação foi recebida (não há transferências entre armazéns).
 - O stock de um produto é a soma das quantidades disponíveis dos seus lotes.
 - Os pedidos são feitos por produto; as entregas retiram quantidades de lotes concretos.
 - O modelo, os requisitos e as regras podem evoluir durante o projeto, mantendo os artefactos coerentes entre si.

@@ -1,2 +1,81 @@
 ﻿Table,Attribute,Data Type,PK,FK,Nullable,Unique,Allowed Values / Domain,Description,Example
-example_table,example_id,INTEGER,Y,,N,Y,,Unique identifier,1
+categoria,id_categoria,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador da categoria,1
+categoria,nome,VARCHAR(60),N,,N,Y,Texto até 60 caracteres; único (BR11),Nome da categoria de produtos,Laticínios
+categoria,descricao,VARCHAR(255),N,,Y,N,Texto livre,Descrição da categoria,"Leite, iogurtes e queijo"
+produto,id_produto,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do produto,1
+produto,id_categoria,INT UNSIGNED,N,categoria.id_categoria,N,N,Categoria existente,Categoria a que o produto pertence (FR03),1
+produto,nome,VARCHAR(100),N,,N,Y,Texto até 100 caracteres; único (BR11),Nome do produto,Leite UHT meio-gordo
+produto,unidade_medida,ENUM,N,,N,N,un | kg | l,Unidade em que se medem as quantidades do produto,l
+armazem,id_armazem,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do armazém,1
+armazem,nome,VARCHAR(80),N,,N,Y,Texto até 80 caracteres; único,Nome do armazém,Armazém Central de Aveiro
+armazem,morada,VARCHAR(150),N,,N,N,Texto até 150 caracteres,Morada do armazém,"Rua das Salinas, 120"
+armazem,localidade,VARCHAR(60),N,,N,N,Texto até 60 caracteres,Localidade do armazém,Aveiro
+voluntario,id_voluntario,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do voluntário/utilizador,3
+voluntario,nome,VARCHAR(100),N,,N,N,Texto até 100 caracteres,Nome do voluntário,Beatriz Santos
+voluntario,email,VARCHAR(120),N,,N,Y,Formato de email; único,"Email, usado também como login (FR01)",beatriz.santos@despensa.test
+voluntario,telefone,VARCHAR(20),N,,Y,N,Texto até 20 caracteres,Contacto telefónico,910000003
+voluntario,perfil,ENUM,N,,N,N,coordenador | voluntario,Papel do utilizador no sistema (FR01),voluntario
+voluntario,password_hash,VARCHAR(255),N,,N,N,Hash PBKDF2-SHA256 (nunca a password em claro),Hash da password de acesso,pbkdf2:sha256:...
+voluntario,data_inscricao,DATE,N,,N,N,Data; por omissão a data atual,Data de entrada como voluntário,2026-04-01
+voluntario,ativo,BOOLEAN,N,,N,N,0 | 1; por omissão 1,Indica se o voluntário está ativo (inativos não se inscrevem em turnos),1
+doador,id_doador,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do doador,1
+doador,tipo,ENUM,N,,N,N,particular | empresa,Tipo de doador (empresa = pessoa coletiva),empresa
+doador,nome,VARCHAR(120),N,,N,N,Texto até 120 caracteres,Nome do doador,Supermercado Ria Fresca
+doador,nif,CHAR(9),N,,Y,Y,9 dígitos; único quando preenchido; obrigatório para empresas,NIF do doador (particulares podem ser anónimos),501234560
+doador,email,VARCHAR(120),N,,Y,N,Formato de email,Email de contacto,geral@riafresca.test
+doador,telefone,VARCHAR(20),N,,Y,N,Texto até 20 caracteres,Contacto telefónico,234000001
+doador,data_registo,DATE,N,,N,N,Data; por omissão a data atual,Data de registo do doador,2025-10-18
+instituicao,id_instituicao,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador da instituição beneficiária,1
+instituicao,nome,VARCHAR(120),N,,N,N,Texto até 120 caracteres,Nome da instituição,Centro Social da Beira-Ria
+instituicao,nif,CHAR(9),N,,N,Y,9 dígitos; único (BR11),NIF da instituição,508000001
+instituicao,tipo,ENUM,N,,N,N,IPSS | Paróquia | Associação | Centro Social | Outra,Tipo de instituição,Centro Social
+instituicao,morada,VARCHAR(150),N,,N,N,Texto até 150 caracteres,Morada da instituição,"Rua do Cais, 3"
+instituicao,localidade,VARCHAR(60),N,,N,N,Texto até 60 caracteres,Localidade da instituição,Aveiro
+instituicao,email,VARCHAR(120),N,,Y,N,Formato de email,Email de contacto,geral@beiraria.test
+instituicao,telefone,VARCHAR(20),N,,Y,N,Texto até 20 caracteres,Contacto telefónico,234100001
+instituicao,num_beneficiarios,INT UNSIGNED,N,,N,N,Inteiro >= 0,Número de pessoas apoiadas pela instituição,120
+instituicao,estado,ENUM,N,,N,N,ativa | suspensa | inativa,Só instituições ativas fazem pedidos (BR12),ativa
+doacao,id_doacao,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador da doação,1
+doacao,id_doador,INT UNSIGNED,N,doador.id_doador,N,N,Doador existente,Quem doou,1
+doacao,id_armazem,INT UNSIGNED,N,armazem.id_armazem,N,N,Armazém existente,Armazém onde a doação foi recebida (e onde ficam os seus lotes),1
+doacao,id_voluntario,INT UNSIGNED,N,voluntario.id_voluntario,Y,N,Voluntário existente ou NULL,Voluntário que rececionou a doação,3
+doacao,data_doacao,DATE,N,,N,N,Data,Data de receção da doação,2026-08-19
+doacao,observacoes,VARCHAR(255),N,,Y,N,Texto livre,Notas sobre a doação,Excedentes de produção
+lote,id_lote,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do lote,5
+lote,id_doacao,INT UNSIGNED,N,doacao.id_doacao,N,N,Doação existente; não alterável,Doação de onde veio o lote (BR05),2
+lote,id_produto,INT UNSIGNED,N,produto.id_produto,N,N,Produto existente; não alterável,Produto do lote (BR05),1
+lote,quantidade_inicial,"DECIMAL(10,2)",N,,N,N,Decimal > 0,"Quantidade recebida, na unidade do produto (BR05)",200.00
+lote,quantidade_disponivel,"DECIMAL(10,2)",N,,N,N,Decimal entre 0 e quantidade_inicial,Quantidade ainda em stock; só diminui por entregas e desperdício (BR02),100.00
+lote,data_validade,DATE,N,,N,N,Data posterior à data da doação (BR09),Data de validade do lote; base da ordem FEFO (BR03),2026-10-23
+pedido,id_pedido,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do pedido,1
+pedido,id_instituicao,INT UNSIGNED,N,instituicao.id_instituicao,N,N,Instituição ativa (BR12),Instituição que fez o pedido,1
+pedido,data_pedido,DATE,N,,N,N,Data,Data do pedido,2026-09-18
+pedido,estado,ENUM,N,,N,N,pendente | parcial | concluido | cancelado,"Estado do pedido, atualizado pelas entregas",concluido
+pedido,observacoes,VARCHAR(255),N,,Y,N,Texto livre,Notas sobre o pedido,Reforço para a cantina
+linha_pedido,id_pedido,INT UNSIGNED,Y,pedido.id_pedido,N,N,Pedido existente,Pedido a que a linha pertence (apagada em cascata com o pedido),1
+linha_pedido,id_produto,INT UNSIGNED,Y,produto.id_produto,N,N,Produto existente,Produto pedido,1
+linha_pedido,quantidade_pedida,"DECIMAL(10,2)",N,,N,N,Decimal > 0,Quantidade pedida do produto,100.00
+entrega,id_entrega,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador da entrega,1
+entrega,id_pedido,INT UNSIGNED,N,pedido.id_pedido,N,N,Pedido pendente ou parcial,Pedido que a entrega satisfaz,1
+entrega,id_armazem,INT UNSIGNED,N,armazem.id_armazem,N,N,Armazém existente,Armazém de onde sai a entrega (BR08),1
+entrega,id_voluntario,INT UNSIGNED,N,voluntario.id_voluntario,N,N,Voluntário existente,Voluntário responsável pela entrega,3
+entrega,data_entrega,DATE,N,,N,N,Data,Data da entrega,2026-09-20
+linha_entrega,id_entrega,INT UNSIGNED,Y,entrega.id_entrega,N,N,Entrega existente,Entrega a que a linha pertence,1
+linha_entrega,id_lote,INT UNSIGNED,Y,lote.id_lote,N,N,"Lote válido, com stock, do armazém da entrega, em ordem FEFO","Lote de onde saiu a quantidade (BR01–BR03, BR08)",5
+linha_entrega,quantidade,"DECIMAL(10,2)",N,,N,N,Decimal > 0; <= disponível no lote; total <= pedido (BR07),Quantidade retirada do lote,100.00
+desperdicio,id_desperdicio,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do registo de desperdício,1
+desperdicio,id_lote,INT UNSIGNED,N,lote.id_lote,N,N,Lote existente,Lote de onde saiu a quantidade perdida,8
+desperdicio,id_voluntario,INT UNSIGNED,N,voluntario.id_voluntario,Y,N,Voluntário existente ou NULL (abate automático),Quem registou o desperdício,3
+desperdicio,data_registo,DATE,N,,N,N,Data,Data do registo,2026-10-09
+desperdicio,quantidade,"DECIMAL(10,2)",N,,N,N,"Decimal > 0; <= disponível no lote (BR02, BR10)",Quantidade perdida,150.00
+desperdicio,motivo,ENUM,N,,N,N,expirado | danificado | outro,Motivo da perda,expirado
+desperdicio,observacoes,VARCHAR(255),N,,Y,N,Texto livre,Notas sobre a perda,Fruta pisada no transporte
+turno,id_turno,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do turno,1
+turno,id_armazem,INT UNSIGNED,N,armazem.id_armazem,N,N,Armazém existente,Armazém onde decorre o turno,1
+turno,data_turno,DATE,N,,N,N,"Data; (armazém, data, hora_inicio) único",Dia do turno,2026-10-12
+turno,hora_inicio,TIME,N,,N,N,Hora,Hora de início,09:00
+turno,hora_fim,TIME,N,,N,N,Hora > hora_inicio,Hora de fim,13:00
+turno,vagas,TINYINT UNSIGNED,N,,N,N,Inteiro > 0,Número máximo de voluntários no turno (BR06),3
+inscricao_turno,id_voluntario,INT UNSIGNED,Y,voluntario.id_voluntario,N,N,Voluntário ativo; máx. 3 turnos por semana (BR04),Voluntário inscrito,3
+inscricao_turno,id_turno,INT UNSIGNED,Y,turno.id_turno,N,N,Turno com vagas (BR06),Turno em que se inscreveu,1
+inscricao_turno,data_inscricao,DATETIME,N,,N,N,Data e hora; por omissão o momento atual,Momento da inscrição,2026-10-18 10:00:00

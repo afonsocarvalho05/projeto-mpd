@@ -3,7 +3,7 @@
 Identificadores FR01, FR02, ... descrevem comportamento observável do sistema.
 
 ## FR01 — Autenticação por papel
-**Description:** O sistema deve permitir o login e identificar o papel do utilizador (Coordenador ou Voluntário).
+**Description:** O sistema deve permitir o login (email e password) e identificar o papel do utilizador (Coordenador ou Voluntário).
 **Actor(s):** Todos
 **Notes / acceptance condition:** Cada papel vê apenas as funcionalidades que lhe correspondem.
 
@@ -40,12 +40,12 @@ Identificadores FR01, FR02, ... descrevem comportamento observável do sistema.
 ## FR08 — Registar entrega (FEFO)
 **Description:** O sistema deve permitir registar a entrega de um pedido, sugerindo os lotes a usar por ordem de validade e retirando as quantidades de vários lotes.
 **Actor(s):** Voluntário, Coordenador
-**Notes / acceptance condition:** Operação atómica: ou todas as linhas de entrega são gravadas e o stock é atualizado, ou nada é alterado. Respeita BR01–BR03, BR07 e BR08.
+**Notes / acceptance condition:** Operação atómica (procedimento `sp_registar_entrega`): ou todas as linhas de entrega são gravadas e o stock é atualizado, ou nada é alterado. Entrega o que houver em stock: o pedido fica `concluido` se tudo for entregue, ou `parcial` caso contrário. Respeita BR01–BR03, BR07 e BR08.
 
 ## FR09 — Registar desperdício
 **Description:** O sistema deve permitir registar a perda de quantidades de um lote (expirado, danificado), com o motivo.
 **Actor(s):** Voluntário, Coordenador
-**Notes / acceptance condition:** A quantidade disponível do lote é reduzida na mesma operação.
+**Notes / acceptance condition:** A quantidade disponível do lote é reduzida na mesma operação. O coordenador pode também abater de uma só vez todos os lotes expirados (`sp_processar_expirados`).
 
 ## FR10 — Gerir voluntários e turnos
 **Description:** O sistema deve permitir gerir voluntários, criar turnos por armazém e inscrever voluntários em turnos.
