@@ -39,13 +39,15 @@ SET PERSIST log_bin_trust_function_creators = 1;
 
 ### 1.2 Criar os objetos e os dados (sempre por esta ordem)
 
-Na pasta do projeto, com o utilizador criado acima:
+Na raiz do projeto, com o utilizador criado acima ([data/setup.sql](data/setup.sql) executa `schema.sql` → `programmable_objects.sql` → `views.sql` → `seed.sql`):
 
 ```bash
-mysql -u despensa_app -p -e "source data/schema.sql; source data/programmable_objects.sql; source data/views.sql; source data/seed.sql"
+mysql -u despensa_app -p -e "source data/setup.sql"
 ```
 
-Ou abrir e executar os 4 ficheiros, pela mesma ordem, no MySQL Workbench.
+Ou abrir e executar os 4 ficheiros, por essa ordem, no MySQL Workbench.
+
+> Windows: se o comando `mysql` não for reconhecido, usar o caminho completo `"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"` (em PowerShell, precedido de `&`) ou acrescentar essa pasta ao PATH.
 
 A ordem difere da do template (o seed vem no fim) porque **as entregas e o desperdício do seed passam pelos triggers e pelo procedimento FEFO**: assim o stock dos dados de exemplo é calculado pela própria base de dados. Correr de novo os 4 ficheiros repõe a base de dados no estado inicial (`schema.sql` começa com `DROP DATABASE`).
 
@@ -58,10 +60,12 @@ mysql -u despensa_app -p -t despensa_solidaria -e "source data/queries.sql"
 ```
 
 ```bash
-mysql -u despensa_app -p --force -t -v despensa_solidaria -e "source data/tests.sql"
+cmd /c "mysql -u despensa_app -p --force -t -v despensa_solidaria < data\tests.sql"
 ```
 
-Os testes negativos **devem** terminar em erro (a mensagem esperada está no comentário de cada teste); `--force` faz continuar após cada erro. O resultado de uma execução está em [documentation/test-results.txt](documentation/test-results.txt). Os testes alteram dados: voltar a correr o passo 1.2 depois.
+(Em macOS/Linux: `mysql -u despensa_app -p --force -t -v despensa_solidaria < data/tests.sql`. No Workbench: ativar *Query → Continue on SQL Script Error*.)
+
+Os testes negativos **devem** terminar em erro (a mensagem esperada está no comentário de cada teste); `--force` faz continuar após cada erro — por isso o ficheiro é passado por redirecionamento (`<`) e não com `source`, que pára no primeiro erro. O resultado de uma execução está em [documentation/test-results.txt](documentation/test-results.txt). Os testes alteram dados: voltar a correr o passo 1.2 depois.
 
 ## 2. Aplicação
 
