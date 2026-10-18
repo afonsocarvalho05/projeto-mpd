@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Doações</h1>
+<p><a class="botao" href="{{ url_for('doacao_nova') }}">+ Registar doação</a></p>
+<div class="tabela"><table>
+  <tr><th>#</th><th>Data</th><th>Doador</th><th>Armazém</th><th>Rececionada por</th><th class="num">Lotes</th><th>Produtos</th></tr>
+  {% for d in linhas %}
+  <tr><td>{{ d.id_doacao }}</td><td>{{ d.data_doacao.strftime('%d/%m/%Y') }}</td><td>{{ d.doador }}</td><td>{{ d.armazem }}</td>
+    <td>{{ d.rececionado_por or '—' }}</td><td class="num">{{ d.num_lotes }}</td><td>{{ d.produtos }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

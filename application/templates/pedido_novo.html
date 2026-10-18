@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Registar pedido</h1>
+<form class="cartao" method="post">
+  <div class="campos">
+    <label>Instituição
+      <select name="instituicao" required>
+        {% for i in instituicoes %}<option value="{{ i.id_instituicao }}">{{ i.nome }}{% if i.estado != 'ativa' %} ({{ i.estado }}){% endif %}</option>{% endfor %}
+      </select></label>
+    <label>Data <input type="date" name="data" value="{{ hoje.isoformat() }}" required></label>
+    <label>Observações <input name="observacoes"></label>
+  </div>
+  <h2>Produtos pedidos</h2>
+  <div id="linhas">
+    <div class="linha-lote">
+      <select name="produto"><option value="">— produto —</option>
+        {% for p in produtos %}<option value="{{ p.id_produto }}">{{ p.nome }} ({{ p.unidade_medida }})</option>{% endfor %}</select>
+      <input type="number" name="quantidade" step="0.01" placeholder="quantidade">
+    </div>
+  </div>
+  <p><button type="button" class="secundario" onclick="adicionarLinha()">+ Adicionar produto</button></p>
+  <button type="submit">Gravar pedido</button>
+  <p class="dica">Instituições suspensas ou inativas são recusadas pela base de dados (BR12).</p>
+</form>
+<script>
+function adicionarLinha() {
+  const c = document.getElementById('linhas');
+  const n = c.firstElementChild.cloneNode(true);
+  n.querySelectorAll('input, select').forEach(e => e.value = '');
+  c.appendChild(n);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Lotes de {{ produto.nome }}</h1>
+<p class="sub">Ordem FEFO por armazém (primeiro a expirar, primeiro a sair). Lotes expirados aparecem riscados.</p>
+<div class="tabela"><table>
+  <tr><th>Lote</th><th>Armazém</th><th>Doador</th><th>Recebido</th><th class="num">Inicial</th><th class="num">Disponível</th><th>Validade</th></tr>
+  {% for l in lotes %}
+  <tr {% if l.expirado %}class="expirado"{% endif %}>
+    <td>{{ l.id_lote }}</td><td>{{ l.armazem }}</td><td>{{ l.doador }}</td><td>{{ l.data_doacao.strftime('%d/%m/%Y') }}</td>
+    <td class="num">{{ l.quantidade_inicial }}</td><td class="num">{{ l.quantidade_disponivel }} {{ produto.unidade_medida }}</td>
+    <td>{{ l.data_validade.strftime('%d/%m/%Y') }}</td></tr>
+  {% endfor %}
+</table></div>
+<p><a href="{{ url_for('stock') }}">← voltar ao stock</a></p>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Doadores</h1>
+<form class="cartao" method="post">
+  <strong>{{ 'Editar doador #' ~ editar.id_doador if editar else 'Novo doador' }}</strong>
+  {% if editar %}<input type="hidden" name="id_doador" value="{{ editar.id_doador }}">{% endif %}
+  <div class="campos" style="margin-top:8px">
+    <label>Tipo <select name="tipo">
+      {% for t in ['particular', 'empresa'] %}<option {% if editar and editar.tipo == t %}selected{% endif %}>{{ t }}</option>{% endfor %}</select></label>
+    <label>Nome <input name="nome" required value="{{ editar.nome if editar else '' }}"></label>
+    <label>NIF <input name="nif" maxlength="9" value="{{ editar.nif or '' if editar else '' }}"></label>
+    <label>Email <input type="email" name="email" value="{{ editar.email or '' if editar else '' }}"></label>
+    <label>Telefone <input name="telefone" value="{{ editar.telefone or '' if editar else '' }}"></label>
+    <button type="submit">Gravar</button>
+    {% if editar %}<a class="botao secundario" href="{{ url_for('doadores') }}">Cancelar</a>{% endif %}
+  </div>
+</form>
+<form class="campos" method="get"><label>Pesquisar <input name="q" value="{{ q }}"></label><button class="secundario">Pesquisar</button></form>
+<br>
+<div class="tabela"><table>
+  <tr><th>Nome</th><th>Tipo</th><th>NIF</th><th>Contacto</th><th class="num">Doações</th><th>Última</th><th></th></tr>
+  {% for d in linhas %}
+  <tr><td>{{ d.nome }}</td><td>{{ d.tipo }}</td><td>{{ d.nif or '—' }}</td><td>{{ d.email or d.telefone or '—' }}</td>
+    <td class="num">{{ d.num_doacoes }}</td><td>{{ d.ultima_doacao.strftime('%d/%m/%Y') if d.ultima_doacao else '—' }}</td>
+    <td><a href="{{ url_for('doadores', editar=d.id_doador) }}">editar</a></td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

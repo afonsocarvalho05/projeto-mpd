@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar · Despensa Solidária{% endblock %}
+{% block conteudo %}
+<form class="cartao login" method="post">
+  <h1>Despensa Solidária</h1>
+  <label>Email <input type="email" name="email" required autofocus></label>
+  <label>Password <input type="password" name="password" required></label>
+  <button type="submit">Entrar</button>
+  <p class="dica">As credenciais de demonstração estão no README do projeto.</p>
+</form>
+{% endblock %}

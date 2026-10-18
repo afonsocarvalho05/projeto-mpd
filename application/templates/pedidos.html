@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Pedidos</h1>
+{% if perfil == 'coordenador' %}<p><a class="botao" href="{{ url_for('pedido_novo') }}">+ Registar pedido</a></p>{% endif %}
+<div class="tabela"><table>
+  <tr><th>#</th><th>Instituição</th><th>Data</th><th class="num">Produtos</th><th class="num">Qtd. em falta</th><th>Estado</th></tr>
+  {% for p in linhas %}
+  <tr><td><a href="{{ url_for('pedido', id_pedido=p.id_pedido) }}">{{ p.id_pedido }}</a></td><td>{{ p.instituicao }}</td>
+    <td>{{ p.data_pedido.strftime('%d/%m/%Y') }}</td><td class="num">{{ p.num_produtos }}</td>
+    <td class="num">{{ p.em_falta if p.estado in ('pendente','parcial') else '—' }}</td>
+    <td><span class="etiqueta {{ p.estado }}">{{ p.estado }}</span></td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

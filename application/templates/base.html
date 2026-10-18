@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Despensa Solidária{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if utilizador %}
+<header>
+  <a class="marca" href="{{ url_for('painel') }}">Despensa Solidária</a>
+  <nav>
+    <a href="{{ url_for('painel') }}">Painel</a>
+    <a href="{{ url_for('stock') }}">Stock</a>
+    <a href="{{ url_for('doacoes') }}">Doações</a>
+    <a href="{{ url_for('pedidos') }}">Pedidos</a>
+    <a href="{{ url_for('desperdicio') }}">Desperdício</a>
+    <a href="{{ url_for('turnos') }}">Turnos</a>
+    {% if perfil == 'coordenador' %}
+    <a href="{{ url_for('doadores') }}">Doadores</a>
+    <a href="{{ url_for('instituicoes') }}">Instituições</a>
+    <a href="{{ url_for('relatorios') }}">Relatórios</a>
+    {% endif %}
+  </nav>
+  <span class="user">{{ utilizador }} ({{ perfil }}) · <a href="{{ url_for('logout') }}">sair</a></span>
+</header>
+{% endif %}
+<main>
+  {% for categoria, msg in get_flashed_messages(with_categories=true) %}
+    <div class="msg {{ categoria }}">{{ msg }}</div>
+  {% endfor %}
+  {% block conteudo %}{% endblock %}
+</main>
+</body>
+</html>

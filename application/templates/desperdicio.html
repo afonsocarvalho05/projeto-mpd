@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Desperdício</h1>
+<form class="cartao" method="post">
+  <strong>Registar perda</strong>
+  <div class="campos" style="margin-top:8px">
+    <label>Lote
+      <select name="lote" required>
+        {% for l in lotes %}<option value="{{ l.id_lote }}">#{{ l.id_lote }} · {{ l.produto }} · {{ l.armazem }} · {{ l.quantidade_disponivel }} {{ l.unidade_medida }} · val. {{ l.data_validade.strftime('%d/%m/%Y') }}</option>{% endfor %}
+      </select></label>
+    <label>Quantidade <input type="number" name="quantidade" step="0.01" min="0.01" required></label>
+    <label>Motivo <select name="motivo">{% for m in ['danificado','expirado','outro'] %}<option>{{ m }}</option>{% endfor %}</select></label>
+    <label>Observações <input name="observacoes"></label>
+    <button type="submit">Registar</button>
+  </div>
+</form>
+<h2>Registos</h2>
+<div class="tabela"><table>
+  <tr><th>Data</th><th>Lote</th><th>Produto</th><th class="num">Quantidade</th><th>Motivo</th><th>Registado por</th><th>Observações</th></tr>
+  {% for r in registos %}
+  <tr><td>{{ r.data_registo.strftime('%d/%m/%Y') }}</td><td>{{ r.id_lote }}</td><td>{{ r.produto }}</td>
+    <td class="num">{{ r.quantidade }} {{ r.unidade_medida }}</td><td>{{ r.motivo }}</td><td>{{ r.registado_por }}</td><td>{{ r.observacoes or '' }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

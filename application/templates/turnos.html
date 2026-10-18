@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Turnos</h1>
+<p class="sub">Os meus turnos nesta semana: <strong>{{ meus_semana }} de 3</strong> (BR04).</p>
+<div class="tabela"><table>
+  <tr><th>Data</th><th>Horário</th><th>Armazém</th><th>Ocupação</th><th>Voluntários</th><th></th></tr>
+  {% for t in linhas %}
+  <tr>
+    <td>{{ ['seg','ter','qua','qui','sex','sáb','dom'][t.data_turno.weekday()] }} {{ t.data_turno.strftime('%d/%m') }}</td>
+    <td>{{ (t.hora_inicio|string)[:-3] }}–{{ (t.hora_fim|string)[:-3] }}</td>
+    <td>{{ t.armazem }}</td>
+    <td><span class="barra"><span style="width: {{ (100 * t.inscritos / t.vagas)|round|int }}%"></span></span> {{ t.inscritos }}/{{ t.vagas }}</td>
+    <td>{{ t.voluntarios or '—' }}</td>
+    <td>
+      {% if t.data_turno >= hoje %}
+      <form method="post">
+        <input type="hidden" name="turno" value="{{ t.id_turno }}">
+        {% if t.eu_inscrito %}<input type="hidden" name="acao" value="sair"><button class="secundario">Sair</button>
+        {% else %}<button>Inscrever</button>{% endif %}
+      </form>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table></div>
+{% if perfil == 'coordenador' %}
+<form class="cartao" method="post">
+  <input type="hidden" name="acao" value="criar">
+  <strong>Criar turno</strong>
+  <div class="campos" style="margin-top:8px">
+    <label>Armazém <select name="armazem">{% for a in armazens %}<option value="{{ a.id_armazem }}">{{ a.nome }}</option>{% endfor %}</select></label>
+    <label>Data <input type="date" name="data" required></label>
+    <label>Início <input type="time" name="inicio" value="09:00" required></label>
+    <label>Fim <input type="time" name="fim" value="13:00" required></label>
+    <label>Vagas <input type="number" name="vagas" min="1" value="3" required></label>
+    <button type="submit">Criar</button>
+  </div>
+</form>
+{% endif %}
+{% endblock %}

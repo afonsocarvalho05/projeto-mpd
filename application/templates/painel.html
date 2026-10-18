@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Painel</h1>
+<div class="cartoes">
+  <div class="cartao"><div class="rotulo">Lotes a expirar (7 dias)</div><div class="valor">{{ ind.a_expirar }}</div></div>
+  <div class="cartao"><div class="rotulo">Lotes expirados por abater</div><div class="valor">{{ ind.expirados }}</div></div>
+  <div class="cartao"><div class="rotulo">Pedidos por satisfazer</div><div class="valor">{{ ind.pedidos_abertos }}</div></div>
+  <div class="cartao"><div class="rotulo">Turnos futuros sem vagas</div><div class="valor">{{ ind.turnos_cheios }}</div></div>
+</div>
+
+<div class="duas">
+  <section>
+    <h2>⚠ A expirar nos próximos 7 dias</h2>
+    <div class="tabela"><table>
+      <tr><th>Lote</th><th>Produto</th><th>Armazém</th><th class="num">Qtd.</th><th class="num">Dias</th></tr>
+      {% for l in a_expirar %}
+      <tr class="alerta"><td>{{ l.id_lote }}</td><td>{{ l.produto }}</td><td>{{ l.armazem }}</td>
+        <td class="num">{{ l.quantidade_disponivel }} {{ l.unidade_medida }}</td><td class="num">{{ l.dias_restantes }}</td></tr>
+      {% else %}<tr><td colspan="5">Nenhum lote a expirar.</td></tr>{% endfor %}
+    </table></div>
+  </section>
+  <section>
+    <h2>Pedidos por satisfazer</h2>
+    <div class="tabela"><table>
+      <tr><th>#</th><th>Instituição</th><th>Data</th><th>Estado</th></tr>
+      {% for p in pedidos %}
+      <tr><td><a href="{{ url_for('pedido', id_pedido=p.id_pedido) }}">{{ p.id_pedido }}</a></td><td>{{ p.instituicao }}</td>
+        <td>{{ p.data_pedido.strftime('%d/%m/%Y') }}</td><td><span class="etiqueta {{ p.estado }}">{{ p.estado }}</span></td></tr>
+      {% else %}<tr><td colspan="4">Sem pedidos em aberto.</td></tr>{% endfor %}
+    </table></div>
+  </section>
+</div>
+
+<h2>Lotes expirados com stock</h2>
+<div class="tabela"><table>
+  <tr><th>Lote</th><th>Produto</th><th>Armazém</th><th class="num">Qtd.</th><th>Validade</th><th class="num">Dias expirado</th></tr>
+  {% for l in expirados %}
+  <tr><td>{{ l.id_lote }}</td><td>{{ l.produto }}</td><td>{{ l.armazem }}</td><td class="num">{{ l.quantidade_disponivel }} {{ l.unidade_medida }}</td>
+    <td>{{ l.data_validade.strftime('%d/%m/%Y') }}</td><td class="num">{{ l.dias_expirado }}</td></tr>
+  {% else %}<tr><td colspan="6">Nenhum lote expirado com stock.</td></tr>{% endfor %}
+</table></div>
+{% if perfil == 'coordenador' and expirados %}
+<form method="post" action="{{ url_for('processar_expirados') }}" style="margin-top:10px">
+  <button type="submit" class="perigo">Abater lotes expirados como desperdício</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Relatórios</h1>
+<form class="campos" method="get">
+  <label>De <input type="date" name="inicio" value="{{ inicio }}"></label>
+  <label>Até <input type="date" name="fim" value="{{ fim }}"></label>
+  <button class="secundario">Aplicar período</button>
+</form>
+
+<div class="duas">
+<section>
+  <h2>Desperdício por categoria</h2>
+  <div class="tabela"><table>
+    <tr><th>Categoria</th><th>Motivo</th><th class="num">Quantidade</th><th class="num">Registos</th></tr>
+    {% for r in desperdicio_cat %}<tr><td>{{ r.categoria }}</td><td>{{ r.motivo }}</td><td class="num">{{ r.quantidade }}</td><td class="num">{{ r.registos }}</td></tr>
+    {% else %}<tr><td colspan="4">Sem desperdício no período.</td></tr>{% endfor %}
+  </table></div>
+</section>
+<section>
+  <h2>Distribuição por instituição</h2>
+  <div class="tabela"><table>
+    <tr><th>Instituição</th><th class="num">Beneficiários</th><th class="num">Entregas</th><th class="num">Quantidade</th></tr>
+    {% for r in distribuicao %}<tr><td>{{ r.instituicao }}</td><td class="num">{{ r.num_beneficiarios }}</td><td class="num">{{ r.entregas }}</td><td class="num">{{ r.quantidade }}</td></tr>{% endfor %}
+  </table></div>
+</section>
+<section>
+  <h2>Doações por doador</h2>
+  <div class="tabela"><table>
+    <tr><th>Doador</th><th>Tipo</th><th class="num">Doações</th><th class="num">Quantidade</th></tr>
+    {% for r in por_doador %}<tr><td>{{ r.nome }}</td><td>{{ r.tipo }}</td><td class="num">{{ r.doacoes }}</td><td class="num">{{ r.quantidade }}</td></tr>
+    {% else %}<tr><td colspan="4">Sem doações no período.</td></tr>{% endfor %}
+  </table></div>
+</section>
+<section>
+  <h2>Evolução mensal</h2>
+  <div class="tabela"><table>
+    <tr><th>Mês</th><th class="num">Entradas</th><th class="num">Saídas</th><th class="num">Desperdício</th></tr>
+    {% for r in mensal %}<tr><td>{{ r.mes }}</td><td class="num">{{ r.entradas }}</td><td class="num">{{ r.saidas }}</td><td class="num">{{ r.perdas }}</td></tr>{% endfor %}
+  </table></div>
+</section>
+</div>
+<p class="dica">Quantidades somadas em unidades mistas (un, kg, l) — indicador de volume, não de peso.</p>
+{% endblock %}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Arial, sans-serif" font-size="14">
+  <rect width="900" height="560" fill="#fff" stroke="#333" stroke-width="2"/>
+  <!-- barra superior -->
+  <rect x="0" y="0" width="900" height="48" fill="#ddd" stroke="#333"/>
+  <text x="20" y="30" font-weight="bold" font-size="18">Despensa Solidária</text>
+  <text x="250" y="30">Painel | Stock | Doações | Pedidos | Desperdício | Turnos | Relatórios</text>
+  <text x="760" y="30">Ana (coord.) ▾</text>
+  <!-- indicadores -->
+  <g>
+    <rect x="20" y="70" width="200" height="80" fill="#f4f4f4" stroke="#333"/>
+    <text x="35" y="95" fill="#555">Lotes a expirar (7 dias)</text><text x="35" y="132" font-size="28" font-weight="bold">4</text>
+    <rect x="240" y="70" width="200" height="80" fill="#f4f4f4" stroke="#333"/>
+    <text x="255" y="95" fill="#555">Lotes expirados</text><text x="255" y="132" font-size="28" font-weight="bold">2</text>
+    <rect x="460" y="70" width="200" height="80" fill="#f4f4f4" stroke="#333"/>
+    <text x="475" y="95" fill="#555">Pedidos por satisfazer</text><text x="475" y="132" font-size="28" font-weight="bold">3</text>
+    <rect x="680" y="70" width="200" height="80" fill="#f4f4f4" stroke="#333"/>
+    <text x="695" y="95" fill="#555">Turnos sem vagas</text><text x="695" y="132" font-size="28" font-weight="bold">2</text>
+  </g>
+  <!-- tabela alertas -->
+  <text x="20" y="185" font-weight="bold">⚠ A expirar nos próximos 7 dias</text>
+  <rect x="20" y="195" width="560" height="30" fill="#e8e8e8" stroke="#333"/>
+  <text x="30" y="215">Lote</text><text x="90" y="215">Produto</text><text x="270" y="215">Armazém</text><text x="420" y="215">Qtd.</text><text x="490" y="215">Dias</text>
+  <g stroke="#333" fill="none">
+    <rect x="20" y="225" width="560" height="30"/><rect x="20" y="255" width="560" height="30"/><rect x="20" y="285" width="560" height="30"/>
+  </g>
+  <text x="30" y="245">10</text><text x="90" y="245">Cenoura</text><text x="270" y="245">Aveiro</text><text x="420" y="245">100 kg</text><text x="490" y="245">2</text>
+  <text x="30" y="275">7</text><text x="90" y="275">Queijo flamengo</text><text x="270" y="275">Aveiro</text><text x="420" y="275">25 kg</text><text x="490" y="275">3</text>
+  <text x="30" y="305">…</text>
+  <!-- pedidos pendentes -->
+  <text x="610" y="185" font-weight="bold">Pedidos pendentes</text>
+  <rect x="610" y="195" width="270" height="120" fill="none" stroke="#333"/>
+  <text x="625" y="222">#5 Grupo Paroquial Esperança</text>
+  <text x="625" y="250">#6 Cantina Social Porta Aberta</text>
+  <text x="625" y="278">#3 Cantina Social (parcial)</text>
+  <rect x="740" y="290" width="125" height="20" fill="#ccc" stroke="#333"/><text x="755" y="305" font-size="12">Registar entrega →</text>
+  <!-- ação -->
+  <rect x="20" y="340" width="260" height="36" fill="#ccc" stroke="#333"/>
+  <text x="38" y="363">Abater lotes expirados como desperdício</text>
+  <text x="20" y="420" fill="#666" font-size="12">FR01 (menu por papel), FR11 (alertas), FR09 (abate de expirados), atalho para FR08</text>
+</svg>

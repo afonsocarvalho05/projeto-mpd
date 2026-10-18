@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Arial, sans-serif" font-size="14">
+  <rect width="900" height="560" fill="#fff" stroke="#333" stroke-width="2"/>
+  <rect x="0" y="0" width="900" height="48" fill="#ddd" stroke="#333"/>
+  <text x="20" y="30" font-weight="bold" font-size="18">Despensa Solidária</text>
+  <text x="250" y="30">Painel | Stock | Doações | Pedidos | Desperdício | <tspan font-weight="bold">Turnos</tspan> | Relatórios</text>
+  <text x="760" y="30">Beatriz (vol.) ▾</text>
+  <text x="20" y="85" font-weight="bold" font-size="18">Turnos</text>
+  <text x="20" y="110" fill="#555">Os meus turnos nesta semana: 3 de 3 (BR04)</text>
+  <rect x="20" y="125" width="860" height="30" fill="#e8e8e8" stroke="#333"/>
+  <text x="30" y="145">Data</text><text x="150" y="145">Horário</text><text x="290" y="145">Armazém</text><text x="520" y="145">Ocupação</text><text x="700" y="145">Ação</text>
+  <g fill="none" stroke="#333">
+    <rect x="20" y="155" width="860" height="34"/><rect x="20" y="189" width="860" height="34"/><rect x="20" y="223" width="860" height="34"/><rect x="20" y="257" width="860" height="34"/>
+  </g>
+  <text x="30" y="177">Seg 12/10</text><text x="150" y="177">09:00–13:00</text><text x="290" y="177">Armazém Central</text>
+  <rect x="520" y="166" width="120" height="12" fill="#fff" stroke="#333"/><rect x="520" y="166" width="120" height="12" fill="#999"/><text x="650" y="177" font-size="12">3/3</text><text x="700" y="177">✓ inscrito</text>
+  <text x="30" y="211">Qua 14/10</text><text x="150" y="211">09:00–13:00</text><text x="290" y="211">Armazém Central</text>
+  <rect x="520" y="200" width="120" height="12" fill="#fff" stroke="#333"/><rect x="520" y="200" width="40" height="12" fill="#999"/><text x="650" y="211" font-size="12">1/3</text><text x="700" y="211">✓ inscrito</text>
+  <text x="30" y="245">Sáb 17/10</text><text x="150" y="245">09:00–13:00</text><text x="290" y="245">Armazém Central</text>
+  <rect x="520" y="234" width="120" height="12" fill="#fff" stroke="#333"/><rect x="520" y="234" width="30" height="12" fill="#999"/><text x="650" y="245" font-size="12">1/4</text>
+  <rect x="700" y="231" width="90" height="22" fill="#ccc" stroke="#333"/><text x="712" y="247" font-size="13">Inscrever</text>
+  <text x="30" y="279">Seg 19/10</text><text x="150" y="279">09:00–13:00</text><text x="290" y="279">Armazém Central</text>
+  <rect x="520" y="268" width="120" height="12" fill="#fff" stroke="#333"/><rect x="520" y="268" width="80" height="12" fill="#999"/><text x="650" y="279" font-size="12">2/3</text>
+  <rect x="700" y="265" width="90" height="22" fill="#ccc" stroke="#333"/><text x="712" y="281" font-size="13">Inscrever</text>
+  <rect x="20" y="315" width="560" height="34" fill="#f4f4f4" stroke="#999" stroke-dasharray="4"/>
+  <text x="32" y="337" fill="#a00">Erro: BR04 — o voluntário já tem 3 turnos nesta semana.</text>
+  <text x="20" y="390" font-weight="bold">Coordenador: criar turno</text>
+  <rect x="20" y="400" width="860" height="50" fill="#f7f7f7" stroke="#333"/>
+  <text x="35" y="430" fill="#777">[Armazém ▾]  [Data]  [Início]  [Fim]  [Vagas]</text><rect x="760" y="412" width="100" height="26" fill="#ccc" stroke="#333"/><text x="780" y="430">Criar</text>
+  <text x="20" y="530" fill="#666" font-size="12">FR10 — inscrição validada por trg_inscricao_turno_bi (BR04, BR06)</text>
+</svg>

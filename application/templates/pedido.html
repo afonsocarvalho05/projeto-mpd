@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Pedido #{{ p.id_pedido }} — {{ p.instituicao }}</h1>
+<p class="sub">Data: {{ p.data_pedido.strftime('%d/%m/%Y') }} · Estado: <span class="etiqueta {{ p.estado }}">{{ p.estado }}</span>
+  {% if p.observacoes %} · {{ p.observacoes }}{% endif %}</p>
+
+<div class="tabela"><table>
+  <tr><th>Produto</th><th class="num">Pedido</th><th class="num">Entregue</th><th class="num">Em falta</th><th class="num">Stock disponível (total)</th></tr>
+  {% for l in progresso %}
+  <tr><td>{{ l.produto }}</td><td class="num">{{ l.quantidade_pedida }} {{ l.unidade_medida }}</td>
+    <td class="num">{{ l.quantidade_entregue }}</td><td class="num">{{ l.quantidade_em_falta }}</td><td class="num">{{ l.stock_total }}</td></tr>
+  {% endfor %}
+</table></div>
+
+{% if p.estado in ('pendente', 'parcial') %}
+<form class="cartao" method="post">
+  <strong>Nova entrega</strong>
+  <div class="campos" style="margin-top:8px">
+    <label>Armazém de saída
+      <select name="armazem">{% for a in armazens %}<option value="{{ a.id_armazem }}">{{ a.nome }}</option>{% endfor %}</select></label>
+    <label>Responsável
+      <select name="voluntario">{% for v in voluntarios %}<option value="{{ v.id_voluntario }}">{{ v.nome }}</option>{% endfor %}</select></label>
+    <label>Data <input type="date" name="data" value="{{ hoje.isoformat() }}" required></label>
+    <button type="submit">Registar entrega (FEFO automático)</button>
+  </div>
+  <p class="dica">Chama o procedimento <code>sp_registar_entrega</code>: escolhe os lotes que expiram primeiro, desconta o stock e atualiza o estado do pedido numa única transação.</p>
+</form>
+{% if perfil == 'coordenador' and p.estado == 'pendente' %}
+<form method="post"><input type="hidden" name="acao" value="cancelar"><button class="perigo">Cancelar pedido</button></form>
+{% endif %}
+{% endif %}
+
+<h2>Entregas e lotes usados</h2>
+<div class="tabela"><table>
+  <tr><th>Entrega</th><th>Data</th><th>Armazém</th><th>Responsável</th><th>Produto</th><th>Lote</th><th>Validade</th><th class="num">Quantidade</th></tr>
+  {% for e in entregas %}
+  <tr><td>#{{ e.id_entrega }}</td><td>{{ e.data_entrega.strftime('%d/%m/%Y') }}</td><td>{{ e.armazem }}</td><td>{{ e.responsavel }}</td>
+    <td>{{ e.produto }}</td><td>{{ e.id_lote }}</td><td>{{ e.data_validade.strftime('%d/%m/%Y') }}</td>
+    <td class="num">{{ e.quantidade }} {{ e.unidade_medida }}</td></tr>
+  {% else %}<tr><td colspan="8">Ainda sem entregas.</td></tr>{% endfor %}
+</table></div>
+<p><a href="{{ url_for('pedidos') }}">← voltar aos pedidos</a></p>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Instituições beneficiárias</h1>
+<form class="cartao" method="post">
+  <strong>Nova instituição</strong>
+  <div class="campos" style="margin-top:8px">
+    <label>Nome <input name="nome" required></label>
+    <label>NIF <input name="nif" maxlength="9" required></label>
+    <label>Tipo <select name="tipo">{% for t in ['IPSS','Paróquia','Associação','Centro Social','Outra'] %}<option>{{ t }}</option>{% endfor %}</select></label>
+    <label>Morada <input name="morada" required></label>
+    <label>Localidade <input name="localidade" required></label>
+    <label>Email <input type="email" name="email"></label>
+    <label>Telefone <input name="telefone"></label>
+    <label>Beneficiários <input type="number" name="num_beneficiarios" min="0" value="0"></label>
+    <button type="submit">Criar</button>
+  </div>
+</form>
+<div class="tabela"><table>
+  <tr><th>Nome</th><th>Tipo</th><th>NIF</th><th>Localidade</th><th class="num">Beneficiários</th><th>Estado</th></tr>
+  {% for i in linhas %}
+  <tr><td>{{ i.nome }}</td><td>{{ i.tipo }}</td><td>{{ i.nif }}</td><td>{{ i.localidade }}</td><td class="num">{{ i.num_beneficiarios }}</td>
+    <td><form method="post" class="campos">
+      <input type="hidden" name="acao" value="estado"><input type="hidden" name="id_instituicao" value="{{ i.id_instituicao }}">
+      <select name="estado" onchange="this.form.submit()">
+        {% for e in ['ativa','suspensa','inativa'] %}<option {% if i.estado == e %}selected{% endif %}>{{ e }}</option>{% endfor %}
+      </select></form></td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

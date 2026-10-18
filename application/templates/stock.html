@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Stock disponível</h1>
+<p class="sub">Só lotes não expirados com quantidade &gt; 0 (vista <code>vw_stock_disponivel</code>).</p>
+<form class="campos" method="get">
+  <label>Armazém
+    <select name="armazem"><option value="">Todos</option>
+      {% for a in armazens %}<option value="{{ a.id_armazem }}" {% if a.id_armazem == id_armazem %}selected{% endif %}>{{ a.nome }}</option>{% endfor %}
+    </select></label>
+  <label>Produto ou categoria <input name="q" value="{{ q }}"></label>
+  <button type="submit" class="secundario">Filtrar</button>
+</form>
+<br>
+<div class="tabela"><table>
+  <tr><th>Armazém</th><th>Categoria</th><th>Produto</th><th class="num">Quantidade</th><th class="num">Lotes</th><th>Próxima validade</th></tr>
+  {% for s in linhas %}
+  <tr {% if (s.proxima_validade - hoje).days <= 7 %}class="alerta"{% endif %}>
+    <td>{{ s.armazem }}</td><td>{{ s.categoria }}</td>
+    <td><a href="{{ url_for('lotes_produto', id_produto=s.id_produto) }}">{{ s.produto }}</a></td>
+    <td class="num">{{ s.quantidade }} {{ s.unidade_medida }}</td><td class="num">{{ s.num_lotes }}</td>
+    <td>{{ s.proxima_validade.strftime('%d/%m/%Y') }}</td></tr>
+  {% else %}<tr><td colspan="6">Sem stock para este filtro.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}
