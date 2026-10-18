@@ -1,0 +1,257 @@
+Resultado de data/tests.sql — executado em 2026-10-18 sobre MySQL 8.0.46 (base criada de novo com o seed)
+
+--------------
+INSERT INTO doador (tipo, nome, nif) VALUES ('empresa', 'Empresa Repetida', '501234560')
+--------------
+
+ERROR 1062 (23000) at line 18: Duplicate entry '501234560' for key 'doador.uq_doador_nif'
+--------------
+INSERT INTO instituicao (nome, nif, tipo, morada, localidade) VALUES ('Teste', '12345', 'IPSS', 'Rua X', 'Aveiro')
+--------------
+
+ERROR 3819 (HY000) at line 21: Check constraint 'ck_instituicao_nif' is violated.
+--------------
+INSERT INTO doador (tipo, nome, nif) VALUES ('empresa', 'Empresa Sem NIF', NULL)
+--------------
+
+ERROR 3819 (HY000) at line 24: Check constraint 'ck_doador_empresa_nif' is violated.
+--------------
+INSERT INTO lote (id_doacao, id_produto, quantidade_inicial, quantidade_disponivel, data_validade)
+VALUES (15, 1, 0, 0, CURRENT_DATE + INTERVAL 30 DAY)
+--------------
+
+ERROR 3819 (HY000) at line 27: Check constraint 'ck_lote_qtd_inicial' is violated.
+--------------
+INSERT INTO turno (id_armazem, data_turno, hora_inicio, hora_fim, vagas)
+VALUES (1, CURRENT_DATE + INTERVAL 20 DAY, '18:00', '14:00', 2)
+--------------
+
+ERROR 3819 (HY000) at line 31: Check constraint 'ck_turno_horas' is violated.
+--------------
+INSERT INTO produto (id_categoria, nome, unidade_medida) VALUES (99, 'Produto órfão', 'un')
+--------------
+
+ERROR 1452 (23000) at line 35: Cannot add or update a child row: a foreign key constraint fails (`despensa_solidaria`.`produto`, CONSTRAINT `fk_produto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE RESTRICT ON UPDATE CASCADE)
+--------------
+DELETE FROM categoria WHERE id_categoria = 1
+--------------
+
+ERROR 1451 (23000) at line 38: Cannot delete or update a parent row: a foreign key constraint fails (`despensa_solidaria`.`produto`, CONSTRAINT `fk_produto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE RESTRICT ON UPDATE CASCADE)
+--------------
+INSERT INTO inscricao_turno (id_voluntario, id_turno) VALUES (4, 3)
+--------------
+
+ERROR 1062 (23000) at line 41: Duplicate entry '4-3' for key 'inscricao_turno.PRIMARY'
+--------------
+INSERT INTO lote (id_doacao, id_produto, quantidade_inicial, quantidade_disponivel, data_validade)
+VALUES (15, 1, 10, 10, CURRENT_DATE - INTERVAL 10 DAY)
+--------------
+
+ERROR 1644 (45000) at line 48: BR09: a validade do lote tem de ser posterior à data da doação.
+--------------
+INSERT INTO pedido (id_instituicao, data_pedido) VALUES (6, CURRENT_DATE)
+--------------
+
+ERROR 1644 (45000) at line 52: BR12: a instituição não está ativa e não pode fazer pedidos.
+--------------
+INSERT INTO inscricao_turno (id_voluntario, id_turno) VALUES (7, 1)
+--------------
+
+ERROR 1644 (45000) at line 55: BR06: o turno já não tem vagas.
+--------------
+INSERT INTO inscricao_turno (id_voluntario, id_turno) VALUES (3, 4)
+--------------
+
+ERROR 1644 (45000) at line 58: BR04: o voluntário já tem 3 turnos nesta semana.
+--------------
+INSERT INTO inscricao_turno (id_voluntario, id_turno) VALUES (10, 9)
+--------------
+
+ERROR 1644 (45000) at line 61: O voluntário está inativo.
+--------------
+INSERT INTO entrega (id_pedido, id_armazem, id_voluntario, data_entrega) VALUES (5, 1, 3, CURRENT_DATE)
+--------------
+
+--------------
+SET @e5 = LAST_INSERT_ID()
+--------------
+
+--------------
+INSERT INTO entrega (id_pedido, id_armazem, id_voluntario, data_entrega) VALUES (6, 1, 3, CURRENT_DATE)
+--------------
+
+--------------
+SET @e6 = LAST_INSERT_ID()
+--------------
+
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e5, 6, 10)
+--------------
+
+ERROR 1644 (45000) at line 70: BR01: o lote está expirado na data da entrega.
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e6, 26, 10)
+--------------
+
+ERROR 1644 (45000) at line 73: BR08: o lote não pertence ao armazém da entrega.
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e6, 30, 155)
+--------------
+
+ERROR 1644 (45000) at line 76: BR02: quantidade superior ao stock disponível do lote.
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e5, 20, 10)
+--------------
+
+ERROR 1644 (45000) at line 79: BR07: o produto do lote não consta do pedido.
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e6, 1, 70)
+--------------
+
+ERROR 1644 (45000) at line 82: BR07: a quantidade entregue excede a quantidade pedida.
+--------------
+INSERT INTO linha_entrega (id_entrega, id_lote, quantidade) VALUES (@e6, 30, 10)
+--------------
+
+ERROR 1644 (45000) at line 85: BR03: existe um lote deste produto que expira mais cedo (FEFO).
+--------------
+DELETE FROM entrega WHERE id_entrega IN (@e5, @e6)
+--------------
+
+--------------
+DELETE FROM linha_entrega WHERE id_entrega = 1 LIMIT 1
+--------------
+
+ERROR 1644 (45000) at line 91: Linhas de entrega não podem ser apagadas (histórico de stock).
+--------------
+INSERT INTO desperdicio (id_lote, id_voluntario, data_registo, quantidade, motivo) VALUES (34, 8, CURRENT_DATE, 20, 'danificado')
+--------------
+
+ERROR 1644 (45000) at line 94: BR02: quantidade desperdiçada superior ao stock disponível do lote.
+--------------
+CALL sp_registar_entrega(1, 1, 3, CURRENT_DATE, @x)
+--------------
+
+ERROR 1644 (45000) at line 101: Só pedidos pendentes ou parciais podem ter entregas.
+--------------
+INSERT INTO pedido (id_instituicao, data_pedido) VALUES (3, CURRENT_DATE)
+--------------
+
+--------------
+SET @p_sal = LAST_INSERT_ID()
+--------------
+
+--------------
+INSERT INTO linha_pedido (id_pedido, id_produto, quantidade_pedida) VALUES (@p_sal, 18, 5)
+--------------
+
+--------------
+SELECT COUNT(*) AS entregas_antes FROM entrega
+--------------
+
++----------------+
+| entregas_antes |
++----------------+
+|              4 |
++----------------+
+--------------
+CALL sp_registar_entrega(@p_sal, 2, 5, CURRENT_DATE, @x)
+--------------
+
+ERROR 1644 (45000) at line 109: BR02: não há stock disponível neste armazém para nenhum produto do pedido.
+--------------
+SELECT COUNT(*) AS entregas_depois_igual_a_antes FROM entrega
+--------------
+
++-------------------------------+
+| entregas_depois_igual_a_antes |
++-------------------------------+
+|                             4 |
++-------------------------------+
+--------------
+INSERT INTO lote (id_doacao, id_produto, quantidade_inicial, quantidade_disponivel, data_validade)
+VALUES (15, 20, 25, 0, CURRENT_DATE + INTERVAL 90 DAY)
+--------------
+
+--------------
+SELECT id_lote, quantidade_inicial, quantidade_disponivel AS disponivel_esperado_25
+  FROM lote WHERE id_lote = LAST_INSERT_ID()
+--------------
+
++---------+--------------------+------------------------+
+| id_lote | quantidade_inicial | disponivel_esperado_25 |
++---------+--------------------+------------------------+
+|      45 |              25.00 |                  25.00 |
++---------+--------------------+------------------------+
+--------------
+CALL sp_registar_entrega(5, 1, 3, CURRENT_DATE, @e)
+--------------
+
+--------------
+SELECT le.id_lote, p.nome AS produto, le.quantidade, l.data_validade, l.quantidade_disponivel AS resta_no_lote
+  FROM linha_entrega le JOIN lote l ON l.id_lote = le.id_lote JOIN produto p ON p.id_produto = l.id_produto
+ WHERE le.id_entrega = @e
+--------------
+
++---------+-----------------+------------+---------------+---------------+
+| id_lote | produto         | quantidade | data_validade | resta_no_lote |
++---------+-----------------+------------+---------------+---------------+
+|       7 | Queijo flamengo |      10.00 | 2026-10-21    |         15.00 |
+|      24 | Maçã            |      80.00 | 2026-10-24    |         10.00 |
+|      35 | Iogurte natural |      50.00 | 2026-10-22    |         50.00 |
++---------+-----------------+------------+---------------+---------------+
+--------------
+SELECT estado AS estado_esperado_concluido FROM pedido WHERE id_pedido = 5
+--------------
+
++---------------------------+
+| estado_esperado_concluido |
++---------------------------+
+| concluido                 |
++---------------------------+
+--------------
+CALL sp_processar_expirados(CURRENT_DATE, @n)
+--------------
+
+--------------
+SELECT @n AS lotes_abatidos_esperado_2
+--------------
+
++---------------------------+
+| lotes_abatidos_esperado_2 |
++---------------------------+
+|                         2 |
++---------------------------+
+--------------
+SELECT id_lote, quantidade_disponivel FROM lote WHERE id_lote IN (4, 6)
+--------------
+
++---------+-----------------------+
+| id_lote | quantidade_disponivel |
++---------+-----------------------+
+|       4 |                  0.00 |
+|       6 |                  0.00 |
++---------+-----------------------+
+--------------
+INSERT INTO inscricao_turno (id_voluntario, id_turno) VALUES (8, 2)
+--------------
+
+--------------
+SELECT COUNT(*) AS inscritos_turno_2 FROM inscricao_turno WHERE id_turno = 2
+--------------
+
++-------------------+
+| inscritos_turno_2 |
++-------------------+
+|                 2 |
++-------------------+
+--------------
+SELECT fn_stock_disponivel(1, 1) AS leite_aveiro, fn_stock_disponivel(1, 2) AS leite_ilhavo,
+       fn_stock_disponivel(1, NULL) AS leite_total
+--------------
+
++--------------+--------------+-------------+
+| leite_aveiro | leite_ilhavo | leite_total |
++--------------+--------------+-------------+
+|       250.00 |        95.00 |      425.00 |
++--------------+--------------+-------------+
