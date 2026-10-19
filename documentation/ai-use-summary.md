@@ -6,7 +6,8 @@
 
 Método seguido: cada artefacto gerado foi **executado ou verificado** antes de servir de contexto à fase seguinte (SQL corrido no MySQL 8.0.46, testes em `data/tests.sql`, protótipo usado no browser).
 
-> **A completar pelo grupo:** acrescentar, em cada caso, quem do grupo reviu e o que verificou pessoalmente; e acrescentar casos próprios se algum colega tiver usado IA (ChatGPT, etc.) noutras partes.
+## Validação humana do resultado final
+No protótipo, verificou-se no ecrã Stock que os lotes de leite do armazém de Aveiro estão ordenados por validade e que o lote que expirava primeiro (lote 5) foi consumido antes do lote 1, apesar de ter sido recebido depois, o que confirma que a ordem segue a validade (FEFO) e não a data de chegada. Registou-se a entrega do pedido #5 e confirmou-se que o sistema usou os lotes que expiravam primeiro (35, 24 e 7), ignorou os lotes de iogurte expirados e marcou o pedido como concluído. Foram tentadas operações inválidas: uma doação com um produto já expirado, recusada pela base de dados (BR09) sem gravar nada, e a inscrição de uma voluntária num turno cheio, recusada (BR06). Detetou-se que a interface mostrava o botão "Inscrever" em turnos sem vagas; a interface foi corrigida para indicar "cheio". Foi ainda feita uma revisão final de coerência, que identificou e levou à correção dos acentos corrompidos ao seguir o README e da contagem de tabelas da consulta Q10.
 
 ## AI-01 — Definição do tema e dos requisitos
 **Tool:** Claude Code

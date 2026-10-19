@@ -16,6 +16,7 @@
       <form method="post">
         <input type="hidden" name="turno" value="{{ t.id_turno }}">
         {% if t.eu_inscrito %}<input type="hidden" name="acao" value="sair"><button class="secundario">Sair</button>
+        {% elif t.inscritos >= t.vagas %}<span class="dica">cheio</span>
         {% else %}<button>Inscrever</button>{% endif %}
       </form>
       {% endif %}
