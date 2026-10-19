@@ -10,6 +10,7 @@
 -- desperdicio, e os ciclos sobre lotes são feitos em procedimentos.
 -- =====================================================================
 
+SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 USE despensa_solidaria;
 
 DROP TRIGGER   IF EXISTS trg_lote_bi;

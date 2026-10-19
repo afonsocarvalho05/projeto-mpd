@@ -8,6 +8,7 @@
 -- Os testes alteram os dados: voltar a correr o seed para repor.
 -- =====================================================================
 
+SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 USE despensa_solidaria;
 
 -- ---------------------------------------------------------------------

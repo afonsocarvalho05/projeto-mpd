@@ -4,6 +4,7 @@
 -- requisito (FR) que suporta.
 -- =====================================================================
 
+SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 USE despensa_solidaria;
 
 -- Q01 — Stock total por categoria, só de lotes válidos (FR05)

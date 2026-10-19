@@ -3,6 +3,7 @@
 -- Vistas reutilizadas pelo protótipo e pelos relatórios.
 -- =====================================================================
 
+SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 USE despensa_solidaria;
 
 -- ---------------------------------------------------------------------

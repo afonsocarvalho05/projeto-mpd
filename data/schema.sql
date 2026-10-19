@@ -6,6 +6,7 @@
 -- (BR01, BR02, BR04, BR06–BR10, BR12) estão em programmable_objects.sql.
 -- =====================================================================
 
+SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 DROP DATABASE IF EXISTS despensa_solidaria;
 CREATE DATABASE despensa_solidaria
   CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
