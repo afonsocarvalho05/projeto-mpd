@@ -127,7 +127,7 @@ SELECT v.nome,
  ORDER BY total_atividades DESC, v.nome;
 
 -- Q10 — Rastreabilidade: de que doadores veio o que uma instituição recebeu
--- JOIN de 7 tabelas, da instituição até ao doador original (pedido 3).
+-- JOIN de 8 tabelas, da instituição até ao doador original (pedido 3).
 SELECT i.nome AS instituicao, e.data_entrega, p.nome AS produto, le.quantidade,
        l.id_lote, l.data_validade, dr.nome AS doador_original, dc.data_doacao
   FROM entrega e
