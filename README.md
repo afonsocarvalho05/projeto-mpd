@@ -86,15 +86,17 @@ python -m venv .venv
 
 Abrir **http://localhost:5000**.
 
-## Credenciais de demonstração
+## Entrar na aplicação (sem passwords)
 
-Criadas pelo `seed.sql` (password igual para todos, apenas para teste local): **`Despensa2026`**
+Por indicação do docente, **a interface não pede passwords**: o ecrã de entrada tem uma lista, e escolhe-se o utilizador com que se quer entrar. Os utilizadores são os voluntários criados pelo `seed.sql`:
 
 | Utilizador | Papel |
 |---|---|
-| `ana.ribeiro@despensa.test` | coordenador |
-| `beatriz.santos@despensa.test` | voluntário (já tem 3 turnos esta semana — bom para mostrar BR04) |
-| `hugo.carvalho@despensa.test` | voluntário inativo (login recusado) |
+| **Ana Ribeiro** (ou Rui Matos) | coordenador |
+| **Beatriz Santos** | voluntário (já tem 3 turnos esta semana — bom para mostrar BR04) |
+| Hugo Carvalho | voluntário inativo (não aparece na lista) |
+
+A única password do projeto é a da ligação ao MySQL (`DB_PASSWORD`, no `.env`, fora do Git).
 
 ## Demonstração sugerida (≈ 10 min)
 
@@ -104,5 +106,5 @@ Criadas pelo `seed.sql` (password igual para todos, apenas para teste local): **
 4. **Doações → Registar doação** com um lote de validade passada → erro **BR09**, nada é gravado.
 5. **Pedidos → Registar pedido** para "Associação Vizinhos Unidos" (suspensa) → erro **BR12**.
 6. **Painel → Abater lotes expirados** → os lotes 4 e 6 passam para *Desperdício*.
-7. Entrar como **Beatriz** → **Turnos** → inscrever num 4.º turno da semana → erro **BR04**.
+7. Sair e entrar como **Beatriz** → **Turnos** → inscrever num 4.º turno da semana (sábado) → erro **BR04**.
 8. **Relatórios**: desperdício por categoria, distribuição por instituição, doações por doador, evolução mensal.

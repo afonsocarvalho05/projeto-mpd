@@ -23,3 +23,6 @@ desktop.ini
 # Ficheiros temporários do Office
 ~$*
 criar_utilizador_local.sql
+
+# Auxiliar pessoal para demonstração no Workbench (não faz parte da entrega)
+data/MOSTRAR_NO_WORKBENCH.sql
