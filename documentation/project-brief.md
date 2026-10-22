@@ -38,7 +38,7 @@ Desenvolver uma base de dados relacional e um protótipo funcional que permitam 
 - Logística de transporte (rotas, viaturas) e transferências de stock entre armazéns.
 - Gestão de famílias/beneficiários finais das instituições.
 - Emissão de recibos fiscais de doação.
-- Autenticação segura de nível de produção (o protótipo usa login simples por papel).
+- Autenticação segura de nível de produção (o protótipo não usa passwords: escolhe-se o utilizador, que define o papel).
 
 ## Main data to manage
 - Doadores, doações
