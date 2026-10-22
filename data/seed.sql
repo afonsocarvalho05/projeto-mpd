@@ -12,8 +12,6 @@
 SET NAMES utf8mb4;   -- garante os acentos com qualquer cliente (ex.: consola Windows em cp850)
 USE despensa_solidaria;
 
--- Hash (PBKDF2-SHA256) da password de demonstração indicada no README.
-SET @pw = 'pbkdf2:sha256:1000000$BIOm2G1GONLFlJ87$238dd5493fec8f33e770cc2162f78dc48c6c816ec8c59a5b3d83aa3800300c65';
 SET @hoje = CURRENT_DATE;
 SET @segunda = CURRENT_DATE - INTERVAL WEEKDAY(CURRENT_DATE) DAY;   -- início da semana atual
 
@@ -62,17 +60,17 @@ INSERT INTO produto (id_categoria, nome, unidade_medida) VALUES
 -- ---------------------------------------------------------------------
 -- Pessoas
 -- ---------------------------------------------------------------------
-INSERT INTO voluntario (nome, email, telefone, perfil, password_hash, data_inscricao, ativo) VALUES
-  ('Ana Ribeiro',     'ana.ribeiro@despensa.test',     '910000001', 'coordenador', @pw, @hoje - INTERVAL 400 DAY, TRUE),   -- 1
-  ('Rui Matos',       'rui.matos@despensa.test',       '910000002', 'coordenador', @pw, @hoje - INTERVAL 300 DAY, TRUE),   -- 2
-  ('Beatriz Santos',  'beatriz.santos@despensa.test',  '910000003', 'voluntario',  @pw, @hoje - INTERVAL 200 DAY, TRUE),   -- 3
-  ('Tiago Oliveira',  'tiago.oliveira@despensa.test',  '910000004', 'voluntario',  @pw, @hoje - INTERVAL 180 DAY, TRUE),   -- 4
-  ('Marta Costa',     'marta.costa@despensa.test',     '910000005', 'voluntario',  @pw, @hoje - INTERVAL 150 DAY, TRUE),   -- 5
-  ('Diogo Ferreira',  'diogo.ferreira@despensa.test',  NULL,        'voluntario',  @pw, @hoje - INTERVAL 120 DAY, TRUE),   -- 6
-  ('Sofia Martins',   'sofia.martins@despensa.test',   '910000007', 'voluntario',  @pw, @hoje - INTERVAL 90 DAY,  TRUE),   -- 7
-  ('Gonçalo Pinto',   'goncalo.pinto@despensa.test',   '910000008', 'voluntario',  @pw, @hoje - INTERVAL 60 DAY,  TRUE),   -- 8
-  ('Inês Rocha',      'ines.rocha@despensa.test',      '910000009', 'voluntario',  @pw, @hoje - INTERVAL 30 DAY,  TRUE),   -- 9
-  ('Hugo Carvalho',   'hugo.carvalho@despensa.test',   NULL,        'voluntario',  @pw, @hoje - INTERVAL 250 DAY, FALSE);  -- 10 (inativo)
+INSERT INTO voluntario (nome, email, telefone, perfil, data_inscricao, ativo) VALUES
+  ('Ana Ribeiro',     'ana.ribeiro@despensa.test',     '910000001', 'coordenador', @hoje - INTERVAL 400 DAY, TRUE),   -- 1
+  ('Rui Matos',       'rui.matos@despensa.test',       '910000002', 'coordenador', @hoje - INTERVAL 300 DAY, TRUE),   -- 2
+  ('Beatriz Santos',  'beatriz.santos@despensa.test',  '910000003', 'voluntario',  @hoje - INTERVAL 200 DAY, TRUE),   -- 3
+  ('Tiago Oliveira',  'tiago.oliveira@despensa.test',  '910000004', 'voluntario',  @hoje - INTERVAL 180 DAY, TRUE),   -- 4
+  ('Marta Costa',     'marta.costa@despensa.test',     '910000005', 'voluntario',  @hoje - INTERVAL 150 DAY, TRUE),   -- 5
+  ('Diogo Ferreira',  'diogo.ferreira@despensa.test',  NULL,        'voluntario',  @hoje - INTERVAL 120 DAY, TRUE),   -- 6
+  ('Sofia Martins',   'sofia.martins@despensa.test',   '910000007', 'voluntario',  @hoje - INTERVAL 90 DAY,  TRUE),   -- 7
+  ('Gonçalo Pinto',   'goncalo.pinto@despensa.test',   '910000008', 'voluntario',  @hoje - INTERVAL 60 DAY,  TRUE),   -- 8
+  ('Inês Rocha',      'ines.rocha@despensa.test',      '910000009', 'voluntario',  @hoje - INTERVAL 30 DAY,  TRUE),   -- 9
+  ('Hugo Carvalho',   'hugo.carvalho@despensa.test',   NULL,        'voluntario',  @hoje - INTERVAL 250 DAY, FALSE);  -- 10 (inativo)
 
 INSERT INTO doador (tipo, nome, nif, email, telefone, data_registo) VALUES
   ('empresa',    'Supermercado Ria Fresca',              '501234560', 'geral@riafresca.test',       '234000001', @hoje - INTERVAL 365 DAY),  -- 1

@@ -40,8 +40,8 @@ Browser ──HTTP──▶ Flask (app.py, templates Jinja2) ──PyMySQL──
 - Cada pedido HTTP abre e fecha a sua ligação (sem pool), suficiente para um protótipo.
 
 ## Authentication / roles
-- Login por email e password; a password é guardada como hash PBKDF2-SHA256 (`werkzeug.security`), nunca em claro.
-- Sessão Flask assinada com `FLASK_SECRET_KEY` (definida no `.env`).
+- **Sem passwords na interface** (requisito do docente): o ecrã de entrada pede apenas que se escolha o utilizador (lista de voluntários ativos). É uma simplificação assumida para um protótipo de demonstração; numa versão de produção seria necessária autenticação.
+- Sessão Flask assinada com `FLASK_SECRET_KEY` (definida no `.env`). A única password do projeto é a da ligação ao MySQL, guardada no `.env` (fora do Git).
 - Dois papéis (`voluntario.perfil`): **coordenador** (tudo, incluindo doadores, instituições, criação de pedidos e turnos, relatórios e abate de expirados) e **voluntário** (painel, stock, doações, entregas, desperdício e inscrição em turnos).
 
 ## Technical constraints

@@ -47,7 +47,7 @@ No protótipo, verificou-se no ecrã Stock que os lotes de leite do armazém de 
 **Input artefacts:** `technical-stack.md`, mockups UI01–UI04, views e procedimentos da BD.
 **Task requested:** gerar o protótipo Flask a partir dos mockups e testá-lo ponta a ponta.
 **Relevant output:** aplicação em `application/` com 10 ecrãs.
-**Human validation:** login com os utilizadores de demonstração, entrega FEFO do pedido #5, envio de dados inválidos em cada formulário e confirmação de que a mensagem da regra (BR02, BR04, BR09, BR12, CHECK, UNIQUE) chega ao utilizador; acesso de um voluntário a uma página de coordenador.
+**Human validation:** entrada com os utilizadores de demonstração (escolha na lista, sem passwords, por indicação do docente), entrega FEFO do pedido #5, envio de dados inválidos em cada formulário e confirmação de que a mensagem da regra (BR02, BR04, BR09, BR12, CHECK, UNIQUE) chega ao utilizador; acesso de um voluntário a uma página de coordenador.
 **Problem / limitation found:** o cartão de login não ficava centrado (especificidade CSS) e os dias da semana dos turnos apareciam em inglês ("Mon", "Tue").
 **Correction / decision:** CSS corrigido; dias da semana traduzidos no template. As regras de negócio **não** foram replicadas em Python, para que a base de dados continue a ser a única fonte das regras.
 **Final result:** capturas em `documentation/screenshots/`.

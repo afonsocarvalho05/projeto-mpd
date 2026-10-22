@@ -48,7 +48,6 @@ erDiagram
         varchar email UK
         varchar telefone
         enum perfil
-        varchar password_hash
         date data_inscricao
         boolean ativo
     }

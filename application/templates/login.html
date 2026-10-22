@@ -3,9 +3,18 @@
 {% block conteudo %}
 <form class="cartao login" method="post">
   <h1>Despensa Solidária</h1>
-  <label>Email <input type="email" name="email" required autofocus></label>
-  <label>Password <input type="password" name="password" required></label>
+  <p class="dica">Protótipo de demonstração: escolha o utilizador com que quer entrar (sem password).</p>
+  <label>Entrar como
+    <select name="id_voluntario" required autofocus>
+      {% for perfil_, grupo in [('coordenador', 'Coordenadores'), ('voluntario', 'Voluntários')] %}
+      <optgroup label="{{ grupo }}">
+        {% for u in utilizadores if u.perfil == perfil_ %}
+        <option value="{{ u.id_voluntario }}">{{ u.nome }}</option>
+        {% endfor %}
+      </optgroup>
+      {% endfor %}
+    </select>
+  </label>
   <button type="submit">Entrar</button>
-  <p class="dica">As credenciais de demonstração estão no README do projeto.</p>
 </form>
 {% endblock %}

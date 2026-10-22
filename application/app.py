@@ -9,7 +9,6 @@ from functools import wraps
 
 import pymysql
 from flask import Flask, flash, redirect, render_template, request, session, url_for
-from werkzeug.security import check_password_hash
 
 import db
 
@@ -42,15 +41,18 @@ def contexto_global():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """Sem passwords (protótipo de demonstração): escolhe-se o utilizador com que se entra."""
     if request.method == "POST":
         v = db.consultar_um(
-            "SELECT id_voluntario, nome, perfil, password_hash, ativo FROM voluntario WHERE email = %s",
-            (request.form["email"].strip(),))
-        if v and v["ativo"] and check_password_hash(v["password_hash"], request.form["password"]):
+            "SELECT id_voluntario, nome, perfil FROM voluntario WHERE id_voluntario = %s AND ativo",
+            (request.form.get("id_voluntario"),))
+        if v:
             session.update(id_voluntario=v["id_voluntario"], nome=v["nome"], perfil=v["perfil"])
             return redirect(url_for("painel"))
-        flash("Email ou password inválidos, ou utilizador inativo.", "erro")
-    return render_template("login.html")
+        flash("Utilizador inexistente ou inativo.", "erro")
+    utilizadores = db.consultar(
+        "SELECT id_voluntario, nome, perfil FROM voluntario WHERE ativo ORDER BY perfil, nome")
+    return render_template("login.html", utilizadores=utilizadores)
 
 
 @app.route("/logout")

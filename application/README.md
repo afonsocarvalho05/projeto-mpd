@@ -12,7 +12,7 @@ Protótipo Flask que usa a base de dados `despensa_solidaria` entregue em `../da
 
 | Ecrã (rota) | Requisitos | Objetos da BD usados |
 |---|---|---|
-| `/login` | FR01 | `voluntario` |
+| `/login` | FR01 | `voluntario` (escolha do utilizador, sem passwords) |
 | `/` Painel | FR09, FR11 | `vw_lotes_a_expirar`, `vw_lotes_expirados`, `sp_processar_expirados` |
 | `/stock`, `/stock/produto/<id>` | FR05 | `vw_stock_disponivel`, `lote` |
 | `/doacoes`, `/doacoes/nova` | FR04 | `doacao`, `lote` (transação na aplicação), `trg_lote_bi` |

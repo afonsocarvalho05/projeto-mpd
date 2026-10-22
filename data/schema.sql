@@ -49,14 +49,13 @@ CREATE TABLE armazem (
 -- Pessoas
 -- ---------------------------------------------------------------------
 
--- Voluntários são também os utilizadores do sistema (perfil define o papel).
+-- Voluntários são também os utilizadores do sistema (perfil define o papel). Sem passwords: protótipo de demonstração.
 CREATE TABLE voluntario (
   id_voluntario   INT UNSIGNED  NOT NULL AUTO_INCREMENT,
   nome            VARCHAR(100)  NOT NULL,
   email           VARCHAR(120)  NOT NULL,
   telefone        VARCHAR(20)   NULL,
   perfil          ENUM('coordenador','voluntario') NOT NULL DEFAULT 'voluntario',
-  password_hash   VARCHAR(255)  NOT NULL,
   data_inscricao  DATE          NOT NULL DEFAULT (CURRENT_DATE),
   ativo           BOOLEAN       NOT NULL DEFAULT TRUE,
   CONSTRAINT pk_voluntario PRIMARY KEY (id_voluntario),

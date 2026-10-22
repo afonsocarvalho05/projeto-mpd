@@ -15,7 +15,6 @@ voluntario,nome,VARCHAR(100),N,,N,N,Texto até 100 caracteres,Nome do voluntári
 voluntario,email,VARCHAR(120),N,,N,Y,Formato de email; único,"Email, usado também como login (FR01)",beatriz.santos@despensa.test
 voluntario,telefone,VARCHAR(20),N,,Y,N,Texto até 20 caracteres,Contacto telefónico,910000003
 voluntario,perfil,ENUM,N,,N,N,coordenador | voluntario,Papel do utilizador no sistema (FR01),voluntario
-voluntario,password_hash,VARCHAR(255),N,,N,N,Hash PBKDF2-SHA256 (nunca a password em claro),Hash da password de acesso,pbkdf2:sha256:...
 voluntario,data_inscricao,DATE,N,,N,N,Data; por omissão a data atual,Data de entrada como voluntário,2026-04-01
 voluntario,ativo,BOOLEAN,N,,N,N,0 | 1; por omissão 1,Indica se o voluntário está ativo (inativos não se inscrevem em turnos),1
 doador,id_doador,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do doador,1

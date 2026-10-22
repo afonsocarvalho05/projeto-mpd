@@ -3,7 +3,7 @@
 Identificadores FR01, FR02, ... descrevem comportamento observável do sistema.
 
 ## FR01 — Autenticação por papel
-**Description:** O sistema deve permitir o login (email e password) e identificar o papel do utilizador (Coordenador ou Voluntário).
+**Description:** O sistema deve permitir entrar escolhendo o utilizador (sem passwords, por ser um protótipo de demonstração) e identificar o seu papel (Coordenador ou Voluntário).
 **Actor(s):** Todos
 **Notes / acceptance condition:** Cada papel vê apenas as funcionalidades que lhe correspondem.
 
