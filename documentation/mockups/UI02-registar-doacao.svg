@@ -5,8 +5,8 @@
   <text x="250" y="30">Painel | Stock | <tspan font-weight="bold">Doações</tspan> | Pedidos | Desperdício | Turnos | Relatórios</text>
   <text x="20" y="85" font-weight="bold" font-size="18">Registar doação</text>
   <!-- cabeçalho -->
-  <text x="20" y="120">Doador</text><rect x="20" y="128" width="300" height="30" fill="none" stroke="#333"/><text x="30" y="148" fill="#777">Supermercado Ria Fresca ▾</text>
-  <text x="340" y="120">Armazém</text><rect x="340" y="128" width="240" height="30" fill="none" stroke="#333"/><text x="350" y="148" fill="#777">Armazém Central de Aveiro ▾</text>
+  <text x="20" y="120">Doador</text><rect x="20" y="128" width="300" height="30" fill="none" stroke="#333"/><text x="30" y="148" fill="#777">Supermercado Ria Fresca v</text>
+  <text x="340" y="120">Armazém</text><rect x="340" y="128" width="240" height="30" fill="none" stroke="#333"/><text x="350" y="148" fill="#777">Armazém Central de Aveiro v</text>
   <text x="600" y="120">Data</text><rect x="600" y="128" width="150" height="30" fill="none" stroke="#333"/><text x="610" y="148" fill="#777">18/10/2026</text>
   <!-- lotes -->
   <text x="20" y="195" font-weight="bold">Lotes</text>
@@ -16,8 +16,8 @@
     <rect x="20" y="235" width="860" height="40"/><rect x="30" y="242" width="340" height="26"/><rect x="400" y="242" width="130" height="26"/><rect x="560" y="242" width="150" height="26"/>
     <rect x="20" y="275" width="860" height="40"/><rect x="30" y="282" width="340" height="26"/><rect x="400" y="282" width="130" height="26"/><rect x="560" y="282" width="150" height="26"/>
   </g>
-  <text x="40" y="260" fill="#777">Leite UHT meio-gordo (l) ▾</text><text x="410" y="260" fill="#777">120</text><text x="570" y="260" fill="#777">17/11/2026</text><text x="740" y="260">✕ remover</text>
-  <text x="40" y="300" fill="#777">Atum em lata (un) ▾</text><text x="410" y="300" fill="#777">150</text><text x="570" y="300" fill="#777">22/11/2027</text><text x="740" y="300">✕ remover</text>
+  <text x="40" y="260" fill="#777">Leite UHT meio-gordo (l) v</text><text x="410" y="260" fill="#777">120</text><text x="570" y="260" fill="#777">17/11/2026</text><text x="740" y="260">x remover</text>
+  <text x="40" y="300" fill="#777">Atum em lata (un) v</text><text x="410" y="300" fill="#777">150</text><text x="570" y="300" fill="#777">22/11/2027</text><text x="740" y="300">x remover</text>
   <rect x="20" y="330" width="140" height="30" fill="#eee" stroke="#333"/><text x="35" y="350">+ Adicionar lote</text>
   <!-- botões -->
   <rect x="20" y="400" width="160" height="38" fill="#ccc" stroke="#333"/><text x="45" y="424" font-weight="bold">Gravar doação</text>
