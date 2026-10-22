@@ -12,7 +12,7 @@ armazem,morada,VARCHAR(150),N,,N,N,Texto até 150 caracteres,Morada do armazém,
 armazem,localidade,VARCHAR(60),N,,N,N,Texto até 60 caracteres,Localidade do armazém,Aveiro
 voluntario,id_voluntario,INT UNSIGNED,Y,,N,N,"Inteiro > 0, gerado automaticamente",Identificador do voluntário/utilizador,3
 voluntario,nome,VARCHAR(100),N,,N,N,Texto até 100 caracteres,Nome do voluntário,Beatriz Santos
-voluntario,email,VARCHAR(120),N,,N,Y,Formato de email; único,"Email, usado também como login (FR01)",beatriz.santos@despensa.test
+voluntario,email,VARCHAR(120),N,,N,Y,Formato de email; único,Email de contacto do voluntário,beatriz.santos@despensa.test
 voluntario,telefone,VARCHAR(20),N,,Y,N,Texto até 20 caracteres,Contacto telefónico,910000003
 voluntario,perfil,ENUM,N,,N,N,coordenador | voluntario,Papel do utilizador no sistema (FR01),voluntario
 voluntario,data_inscricao,DATE,N,,N,N,Data; por omissão a data atual,Data de entrada como voluntário,2026-04-01
